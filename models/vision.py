@@ -55,6 +55,7 @@ def weights_init_for_resnet(m):
     # if hasattr(m, "bias"):
     #     m.bias.data.uniform_(-0.5, 0.5)
 
+
 class BasicBlock(nn.Module):
     expansion = 1
 
@@ -119,10 +120,10 @@ class ResNet(nn.Module):
         self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=1)
         self.layer3 = self._make_layer(block, 256, num_blocks[2], stride=1)
         self.layer4 = self._make_layer(block, 512, num_blocks[3], stride=1)
-        # self.linear = nn.Linear(512*32*32*block.expansion, num_classes)
-        self.avgpool = nn.MaxPool2d(2, stride=1)
+        self.linear = nn.Linear(512*32*32*block.expansion, num_classes)
+        # self.avgpool = nn.MaxPool2d(2, stride=1)
         # self.avgpool = nn.AvgPool2d(4)
-        self.linear = nn.Linear(512 * 31*31 * block.expansion, num_classes)
+        # self.linear = nn.Linear(512 * 31*31 * block.expansion, num_classes)
 
     def _make_layer(self, block, planes, num_blocks, stride):
         strides = [stride] + [1]*(num_blocks-1)
@@ -138,7 +139,7 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.layer4(out)
-        out = self.avgpool(out)  # 这块有信息损失？
+        # out = self.avgpool(out)  # 这块有信息损失？
         out = out.view(out.size(0), -1)
         out = self.linear(out)
         return out

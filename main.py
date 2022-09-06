@@ -89,16 +89,16 @@ for iters in range(300):
         # for gx, gy in zip(dummy_dy_dx, original_dy_dx):
         #     # grad_diff += (torch.abs(gx - gy)).sum()
         #     grad_diff += ((gx - gy)**2).sum()
-        grad_diff = sum((10000*(dummy_g - origin_g)**2).sum() for dummy_g, origin_g in zip(dummy_dy_dx, original_dy_dx))
-        # grad_diff = sum(((dummy_g - origin_g) ** 2).sum() for dummy_g, origin_g in zip(dummy_dy_dx, original_dy_dx))
+        # grad_diff = sum((10000*(dummy_g - origin_g)**2).sum() for dummy_g, origin_g in zip(dummy_dy_dx, original_dy_dx))
+        grad_diff = sum(((dummy_g - origin_g) ** 2).sum() for dummy_g, origin_g in zip(dummy_dy_dx, original_dy_dx))
         # grad_diff = sum((torch.abs(dummy_g - origin_g)).sum() for dummy_g, origin_g in zip(dummy_dy_dx, original_dy_dx))
         # grad_diff = torch.log(grad_diff)
         grad_diff.backward()
-        print(iters, "%f" % grad_diff)
-        print(
-            f"dummy_data.grad max: {dummy_data.grad.max()} min: {dummy_data.grad.min()} mean: {dummy_data.grad.mean()}")
-        print(
-            f"dummy_label.grad max: {dummy_label.grad.max()} min: {dummy_label.grad.min()} mean: {dummy_label.grad.mean()}")
+        # print(iters, "%f" % grad_diff)
+        # print(
+        #     f"dummy_data.grad max: {dummy_data.grad.max()} min: {dummy_data.grad.min()} mean: {dummy_data.grad.mean()}")
+        # print(
+        #     f"dummy_label.grad max: {dummy_label.grad.max()} min: {dummy_label.grad.min()} mean: {dummy_label.grad.mean()}")
 
 
         
